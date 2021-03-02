@@ -68,7 +68,36 @@ We design a system that maintains two graphs and runs up to 10x faster than real
   cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF ..
   sudo make install -j8
   ```
-
+- [rslidar](https://github.com/RoboSense-LiDAR/rslidar_sdk/tree/release) (new rslidar driver)
+  ```
+  cd ~/robot_ws/src
+  git clone https://github.com/RoboSense-LiDAR/rslidar_sdk.git
+  cd rslidar_sdk
+  git submodule init
+  git submodule update
+  ```
+  Inside the CMakeList.txt file change Pointcloud type to XYZIRT - x, y, z, intensity, ring, timestamp.
+  ```
+  #=======================================
+  # Custom Point Type (XYZI, XYZIRT)
+  #=======================================
+  set(POINT_TYPE XYZIRT)
+  ```
+  And the compile method to CATKIN.
+  ```
+  #=======================================
+  # Compile setup (ORIGINAL,CATKIN,COLCON)
+  #=======================================
+  set(COMPILE_METHOD CATKIN)
+  ```
+  Rename the file package_ros1.xml in the rslidar_sdk to package.xml
+  
+  Compile the work space and run the launch file.
+  ```
+  catkin_make
+  source devel/setup.bash
+  roslaunch rslidar_sdk start.launch
+  ```
 ## Install
 
 Use the following commands to download and compile the package.
